@@ -9,6 +9,6 @@
 Unityを使用してビルドを行ってください。  
 
 ## ビルドの際の注意事項  
-Unityのバージョンは **Unity2019.2.0b6**　以降を使用してください。
-**Tiny Mode Preview 0.15.3** にて開発されています。  
-ビルドする際には　**Tiny Mode Preview 0.15.3**　以降をImport後にこのをProjectをImportしてください。
+Unityのバージョンは **Unity2019.2.0b7**　以降を使用してください。
+**Tiny Mode Preview 0.16.1** にて開発されています。  
+ビルドする際には　**Tiny Mode Preview 0.16.1**　以降をImport後にこのProjectをImportしてください。
