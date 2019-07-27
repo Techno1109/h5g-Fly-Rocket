@@ -5,5 +5,6 @@ namespace throwknife
     public struct TargetTag : IComponentData
     {
         //判別用のタグなのでなかには何も持たせません。
+       public bool ActiveTag;
     }
 }
