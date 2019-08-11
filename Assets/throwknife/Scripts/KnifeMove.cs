@@ -1,7 +1,9 @@
 using Unity.Entities;
 using Unity.Tiny.Core;
 using Unity.Tiny.Core2D;
+using Unity.Tiny.UIControls;
 using Unity.Mathematics;
+using Unity.Collections;
 
 namespace throwknife
 {
@@ -11,6 +13,10 @@ namespace throwknife
         EntityQueryDesc KnifeDesc;
 
         EntityQuery KnifeQuery;
+
+        EntityQueryDesc ButtonDesc;
+
+        EntityQuery ButtonQuery;
 
         protected override void OnCreate()
         {
@@ -22,24 +28,43 @@ namespace throwknife
                 All = new ComponentType[] { typeof(KnifeTag), typeof(Translation) },
             };
 
+            ButtonDesc = new EntityQueryDesc()
+            {
+                All = new ComponentType[] {typeof(MoveButtonTag) ,typeof(PointerInteraction)},
+            };
+
+
+
             /*GetEntityQueryで取得した結果は自動的に開放されるため、Freeを行う処理を書かなくていいです。*/
             //作成したクエリの結果を取得します。
             KnifeQuery = GetEntityQuery(KnifeDesc);
+
+            ButtonQuery = GetEntityQuery(ButtonDesc);
         }
 
         protected override void OnUpdate()
         {
             /*チャンクイテレーションは行数が間延びしやすく、書くのが面倒なため、ForeachAPIを使用します*/
 
+            bool InputButton = false;
+
+            NativeArray<PointerInteraction> MoveButtons = ButtonQuery.ToComponentDataArray<PointerInteraction>(Allocator.TempJob);
+
+            for(int i=0;i<MoveButtons.Length; i++)
+            {
+                InputButton = InputButton || MoveButtons[i].down;
+            }
+
             Entities.With(KnifeQuery).ForEach((ref Translation Transform,ref KnifeTag Tag) =>
            {
 
-               if (Tag.ActiveTag==true)
+               if (Tag.ActiveTag==true&&InputButton==true)
                {
                    Transform.Value.y -= 0.05f;
-                   Tag.ScoreUp = true;
                }
            });
+
+            MoveButtons.Dispose();
         }
     }
 }

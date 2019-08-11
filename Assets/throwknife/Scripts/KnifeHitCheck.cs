@@ -28,7 +28,7 @@ namespace throwknife
 
             TargetDesc = new EntityQueryDesc()
             {
-                All = new ComponentType[] { typeof(TargetTag), typeof(Translation), typeof(Sprite2DRendererHitBox2D)},
+                All = new ComponentType[] { typeof(TargetTag), typeof(Translation), typeof(Sprite2DRendererHitBox2D), typeof(HitBoxOverlap) },
             };
 
             /*GetEntityQueryで取得した結果は自動的に開放されるため、Freeを行う処理を書かなくていいです。*/
@@ -39,27 +39,43 @@ namespace throwknife
 
         protected override void OnUpdate()
         {
-            Entities.With(KnifeQuery).ForEach((ref KnifeTag tag,ref Translation Ktrans) =>
+            NativeArray<Entity> KnifeEntitys = KnifeQuery.ToEntityArray(Allocator.TempJob);
+            NativeArray<KnifeTag> KnifeTags = KnifeQuery.ToComponentDataArray<KnifeTag>(Allocator.TempJob);
+
+            Entities.With(TargetQuery).ForEach((Entity ThisEntity, ref Translation Ttrans) =>
             {
-                float Hight = 0;
-                bool Result = tag.ActiveTag;
-
-                if (Result==true)
+                var HitEntity = EntityManager.GetBuffer<HitBoxOverlap>(ThisEntity);
+                for(int i=0;i<KnifeEntitys.Length; i++)
                 {
-                    Hight = Ktrans.Value.y;
-
-                    Entities.With(TargetQuery).ForEach((ref Translation Ttrans) =>
+                    if(KnifeTags[i].ActiveTag==false)
                     {
-                        if(Ttrans.Value.y>Hight)
-                        {
-                            Result = false;
-                        }
-                    });
-                }
+                        continue;
+                    }
+                    bool HitResultFlag = false;
 
-                tag.ActiveTag = Result;
+                    for(int k=0;k<HitEntity.Length;k++)
+                    {
+                        if(KnifeEntitys[i]==HitEntity[k].otherEntity)
+                        {
+                            HitResultFlag = true;
+                            break;
+                        }
+                    }
+
+                    if(HitResultFlag==true)
+                    {
+                        var Tmp = KnifeTags[i];
+                        Tmp.ActiveTag = false;
+                        Tmp.ScoreUp = true;
+                        KnifeTags[i] = Tmp;
+                    }
+                }
             });
 
+            KnifeQuery.CopyFromComponentDataArray(KnifeTags);
+
+            KnifeEntitys.Dispose();
+            KnifeTags.Dispose();
         }
     }
 }

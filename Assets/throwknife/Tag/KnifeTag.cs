@@ -7,5 +7,6 @@ namespace throwknife
         //判別用のタグなのでなかには何も持たせません。
        public bool ActiveTag;
        public bool ScoreUp;
+       public bool MoveFlag;
     }
 }
