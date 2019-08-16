@@ -19,10 +19,9 @@ namespace throwknife
         {
             /*ECSにおいて、クエリの作成はOnCreateで行うのが定石となっています*/
 
-            //KnifeTagがあり、なおかつTranslationを所持しているEntityのみを取り出すクエリを作成します。
             KnifeDesc = new EntityQueryDesc()
             {
-                All = new ComponentType[] { typeof(KnifeTag),typeof (Translation), typeof(Sprite2DRendererHitBox2D)},
+                All = new ComponentType[] { typeof(KnifeTag),typeof (Translation), typeof(Sprite2DRendererHitBox2D),typeof(RigidBody) },
             };
 
 
@@ -41,6 +40,7 @@ namespace throwknife
         {
             NativeArray<Entity> KnifeEntitys = KnifeQuery.ToEntityArray(Allocator.TempJob);
             NativeArray<KnifeTag> KnifeTags = KnifeQuery.ToComponentDataArray<KnifeTag>(Allocator.TempJob);
+            NativeArray<RigidBody> KnifeRigidBodys = KnifeQuery.ToComponentDataArray<RigidBody>(Allocator.TempJob);
 
             Entities.With(TargetQuery).ForEach((Entity ThisEntity, ref Translation Ttrans) =>
             {
@@ -65,15 +65,20 @@ namespace throwknife
                     if(HitResultFlag==true)
                     {
                         var Tmp = KnifeTags[i];
+                        var Rigid = KnifeRigidBodys[i];
+                        Rigid.IsActive = false;
                         Tmp.ActiveTag = false;
                         Tmp.ScoreUp = true;
                         KnifeTags[i] = Tmp;
+                        KnifeRigidBodys[i] = Rigid;
                     }
                 }
             });
 
             KnifeQuery.CopyFromComponentDataArray(KnifeTags);
+            KnifeQuery.CopyFromComponentDataArray(KnifeRigidBodys);
 
+            KnifeRigidBodys.Dispose();
             KnifeEntitys.Dispose();
             KnifeTags.Dispose();
         }

@@ -25,7 +25,7 @@ namespace throwknife
             //KnifeTagがあり、なおかつTranslationを所持しているEntityのみを取り出すクエリを作成します。
             KnifeDesc = new EntityQueryDesc()
             {
-                All = new ComponentType[] { typeof(KnifeTag), typeof(Translation) },
+                All = new ComponentType[] { typeof(KnifeTag), typeof(RigidBody) },
             };
 
             ButtonDesc = new EntityQueryDesc()
@@ -55,13 +55,21 @@ namespace throwknife
                 InputButton = InputButton || MoveButtons[i].down;
             }
 
-            Entities.With(KnifeQuery).ForEach((ref Translation Transform,ref KnifeTag Tag) =>
+            Entities.With(KnifeQuery).ForEach((ref RigidBody Rigid,ref KnifeTag Tag) =>
            {
-
-               if (Tag.ActiveTag==true&&InputButton==true)
+               if (InputButton==true&& Rigid.UseGravity)
                {
-                   Transform.Value.y -= 0.05f;
+                   if (!Rigid.IsActive)
+                   {
+                       Rigid.IsActive = true;
+                   }
+                   Rigid.Velocity.y += 0.8f*World.TinyEnvironment().fixedFrameDeltaTime;
+                   if (Rigid.Velocity.y > 2f)
+                   {
+                       Rigid.Velocity.y = 2f;
+                   }
                }
+
            });
 
             MoveButtons.Dispose();
