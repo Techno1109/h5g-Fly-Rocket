@@ -5,6 +5,7 @@ using Unity.Collections;
 
 namespace throwknife
 {
+    [UpdateAfter(typeof(KnifeMove))]
     public class FollowCameraSystem : ComponentSystem
     {
         EntityQueryDesc CameraQueryDesc;
@@ -13,7 +14,6 @@ namespace throwknife
         {
             /*ECSにおいて、クエリの作成はOnCreateで行うのが定石となっています*/
 
-            //RigidBodyComponentがアタッチされており、なおかつTranslationがアタッチされているEntityを取得します
             CameraQueryDesc = new EntityQueryDesc()
             {
                 All = new ComponentType[] { typeof(FollowCam), typeof(Translation) },
@@ -41,7 +41,7 @@ namespace throwknife
                     var Trans = CamTransArray[EntityNum];
 
                     Cam.LastHigher = TargetTrans.Value.y;
-                    Trans.Value.y = TargetTrans.Value.y;
+                    Trans.Value.y = TargetTrans.Value.y + Cam.Offset;
 
                     CamTransArray[EntityNum] = Trans;
                     CamArray[EntityNum] = Cam;

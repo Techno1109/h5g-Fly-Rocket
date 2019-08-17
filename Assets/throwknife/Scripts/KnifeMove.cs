@@ -50,14 +50,14 @@ namespace throwknife
 
             NativeArray<PointerInteraction> MoveButtons = ButtonQuery.ToComponentDataArray<PointerInteraction>(Allocator.TempJob);
 
-            for(int i=0;i<MoveButtons.Length; i++)
+            for (int i=0;i<MoveButtons.Length; i++)
             {
                 InputButton = InputButton || MoveButtons[i].down;
             }
 
             Entities.With(KnifeQuery).ForEach((ref RigidBody Rigid,ref KnifeTag Tag) =>
            {
-               if (InputButton==true&& Rigid.UseGravity)
+               if (InputButton==true&& Rigid.UseGravity&&Tag.ActiveTag==true)
                {
                    if (!Rigid.IsActive)
                    {
@@ -71,6 +71,8 @@ namespace throwknife
                }
 
            });
+
+            
 
             MoveButtons.Dispose();
         }

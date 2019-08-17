@@ -5,6 +5,7 @@ using Unity.Collections;
 
 namespace throwknife
 {
+    [UpdateBefore(typeof(KnifeMove))]
     public class RigidBodySystem : ComponentSystem
     {
         const float Gravity = 0.5f;

@@ -7,5 +7,6 @@ namespace throwknife
     {
         public Entity TargetEntity;
         public float LastHigher;
+        public float Offset;
     }
 }
