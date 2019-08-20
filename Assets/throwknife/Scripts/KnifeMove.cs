@@ -22,7 +22,6 @@ namespace throwknife
         {
             /*ECSにおいて、クエリの作成はOnCreateで行うのが定石となっています*/
 
-            //KnifeTagがあり、なおかつTranslationを所持しているEntityのみを取り出すクエリを作成します。
             KnifeDesc = new EntityQueryDesc()
             {
                 All = new ComponentType[] { typeof(KnifeTag), typeof(RigidBody) },
@@ -46,9 +45,16 @@ namespace throwknife
         {
             /*チャンクイテレーションは行数が間延びしやすく、書くのが面倒なため、ForeachAPIを使用します*/
 
-            bool InputButton = false;
-
             NativeArray<PointerInteraction> MoveButtons = ButtonQuery.ToComponentDataArray<PointerInteraction>(Allocator.TempJob);
+
+
+            if (MoveButtons.Length <= 0)
+            {
+                MoveButtons.Dispose();
+                return;
+            }
+
+            bool InputButton = false;
 
             for (int i=0;i<MoveButtons.Length; i++)
             {

@@ -5,10 +5,8 @@
     "AssetReferences": [],
     "Entities": [{
         "Components": [{
-            "$type": "GameConfig, throwknife",
-            "NowScene": {
-                "SceneGuid": "a497cee88f6f4895a14d8ce1141f88d9"
-            }
+            "$type": "GameStateConfig, throwknife",
+            "IsActive": true
         }, {
             "$type": "Unity.Entities.EntityGuid, Unity.Entities",
             "a": 13454292381419589103,
@@ -50,6 +48,8 @@
                 "StableTypeHash": 12662904853204722592
             }, {
                 "StableTypeHash": 5843673968402093993
+            }, {
+                "StableTypeHash": 11077418741005266986
             }]
         }, {
             "$type": "Unity.Authoring.Core.ConfigurationTag, Unity.Authoring.Core"

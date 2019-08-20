@@ -22,7 +22,6 @@ namespace throwknife
         {
             /*ECSにおいて、クエリの作成はOnCreateで行うのが定石となっています*/
 
-            //KnifeTagがあり、なおかつTranslationを所持しているEntityのみを取り出すクエリを作成します。
             KnifeDesc = new EntityQueryDesc()
             {
                 All = new ComponentType[] { typeof(KnifeTag), typeof(Translation) },
@@ -47,29 +46,21 @@ namespace throwknife
 
         protected override void OnUpdate()
         {
-            /*チャンクイテレーションは行数が間延びしやすく、書くのが面倒なため、ForeachAPIを使用します*/
-
-            //Entities.With(KnifeQuery).ForEach((ref Translation Transform, ref KnifeTag Tag) =>
-            //{
-
-            //    if (Tag.ScoreUp == true && Tag.ActiveTag == false)
-            //    {
-            //        Entities.With(ScoreQuery).ForEach((Entity entity,ref ScoreComp score) =>
-            //        {
-            //            score.Score += 100;
-            //            EntityManager.SetBufferFromString<TextString>(entity, score.Score.ToString());
-            //        });
-
-            //       Tag.ScoreUp = false;
-            //    }
-            //});
 
             NativeArray<FollowCam> FollowCamArray = FollowCamQuery.ToComponentDataArray<FollowCam>(Allocator.TempJob);
             NativeArray<Entity> ScoreEntity = ScoreQuery.ToEntityArray(Allocator.TempJob);
 
-            for(int EntityNum =0;EntityNum<FollowCamArray.Length;EntityNum++)
+            if (FollowCamArray.Length <= 0 || ScoreEntity.Length <= 0)
             {
-                int SendScore = (int)(FollowCamArray[EntityNum].LastHigher * 100);
+                FollowCamArray.Dispose();
+                ScoreEntity.Dispose();
+
+                return;
+            }
+
+            for (int EntityNum =0;EntityNum<FollowCamArray.Length;EntityNum++)
+            {
+                int SendScore = (int)(FollowCamArray[EntityNum].LastHigher * 10);
                 EntityManager.SetBufferFromString<TextString>(ScoreEntity[EntityNum], SendScore.ToString());
             }
             FollowCamArray.Dispose();

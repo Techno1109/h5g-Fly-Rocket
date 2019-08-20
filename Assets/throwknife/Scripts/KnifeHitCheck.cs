@@ -54,6 +54,15 @@ namespace throwknife
             NativeArray<RigidBody> KnifeRigidBodys = KnifeQuery.ToComponentDataArray<RigidBody>(Allocator.TempJob);
             NativeArray<Entity> SceneChangeEntity = SceneChangeButtonQuery.ToEntityArray(Allocator.TempJob);
 
+            if (SceneChangeEntity.Length <= 0 || KnifeRigidBodys.Length <= 0 || KnifeEntitys.Length <= 0 || KnifeTags.Length <= 0)
+            {
+                SceneChangeEntity.Dispose();
+                KnifeRigidBodys.Dispose();
+                KnifeEntitys.Dispose();
+                KnifeTags.Dispose();
+                return;
+            }
+
             Entities.With(TargetQuery).ForEach((Entity ThisEntity, ref Translation Ttrans) =>
             {
                 var HitEntity = EntityManager.GetBuffer<HitBoxOverlap>(ThisEntity);
@@ -87,6 +96,11 @@ namespace throwknife
                         });
                         KnifeTags[i] = Tmp;
                         KnifeRigidBodys[i] = Rigid;
+                        var Config = World.TinyEnvironment().GetConfigData<GameStateConfig>();
+
+                        Config.IsActive = false;
+
+                        World.TinyEnvironment().SetConfigData(Config);
                     }
                 }
             });

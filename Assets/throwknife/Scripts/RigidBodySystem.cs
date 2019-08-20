@@ -16,7 +16,6 @@ namespace throwknife
         {
             /*ECSにおいて、クエリの作成はOnCreateで行うのが定石となっています*/
 
-            //RigidBodyComponentがアタッチされており、なおかつTranslationがアタッチされているEntityを取得します
             RigidBodyQueryDesc = new EntityQueryDesc()
             {
                 All = new ComponentType[] { typeof(RigidBody),typeof(Translation) },
@@ -32,6 +31,14 @@ namespace throwknife
         {
             NativeArray<RigidBody> RigidBodyArray = RigidBodyQuery.ToComponentDataArray<RigidBody>(Allocator.TempJob);
             NativeArray<Translation> TranslationArray = RigidBodyQuery.ToComponentDataArray<Translation>(Allocator.TempJob);
+
+            if (RigidBodyArray.Length <= 0 || TranslationArray.Length <= 0 )
+            {
+                TranslationArray.Dispose();
+                RigidBodyArray.Dispose();
+                return;
+            }
+
             float DeltaTime = World.TinyEnvironment().fixedFrameDeltaTime;
 
             for (int EntityNum = 0; EntityNum<RigidBodyArray.Length; EntityNum++)

@@ -5,7 +5,7 @@ using Unity.Collections;
 
 namespace throwknife
 {
-    [UpdateAfter(typeof(KnifeMove))]
+    [UpdateAfter(typeof(ObjectEmitter))]
     public class FollowCameraSystem : ComponentSystem
     {
         EntityQueryDesc CameraQueryDesc;
@@ -30,8 +30,16 @@ namespace throwknife
             NativeArray<FollowCam> CamArray = CameraQuery.ToComponentDataArray<FollowCam>(Allocator.TempJob);
             NativeArray<Translation> CamTransArray = CameraQuery.ToComponentDataArray<Translation>(Allocator.TempJob);
 
+            if (CamArray.Length <= 0 || CamTransArray.Length <= 0)
+            {
 
-            for(int EntityNum =0; EntityNum<CamArray.Length; EntityNum++)
+                CamArray.Dispose();
+                CamTransArray.Dispose();
+                return;
+            }
+
+
+            for (int EntityNum =0; EntityNum<CamArray.Length; EntityNum++)
             {
                 Translation TargetTrans =EntityManager.GetComponentData<Translation>(CamArray[EntityNum].TargetEntity);
 

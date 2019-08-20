@@ -4,7 +4,7 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{F92A57A1-48C9-4050-D2ED-92512F7B2095}</ProjectGuid>
+    <ProjectGuid>{3F3B46E4-AEA7-9032-EEA0-6A8252794F0C}</ProjectGuid>
     <OutputType>Library</OutputType>
     <RootNamespace></RootNamespace>
     <AssemblyName>throwknife</AssemblyName>
@@ -30,17 +30,17 @@
     <AllowUnsafeBlocks>false</AllowUnsafeBlocks>
     <Prefer32Bit>true</Prefer32Bit>
     <StartAction>Program</StartAction>
-    <StartProgram>C:\Users\keigo\Downloads\Desktop\Git\h5g-knife-throwing\Library\DotsRuntimeBuild\build\throwknife\throwknife-windows-il2cpp-debug\throwknife.exe</StartProgram>
+    <StartProgram>C:\Users\keigo\Downloads\Desktop\h5g-knife-throwing\Library\DotsRuntimeBuild\build\throwknife\throwknife-windows-il2cpp-debug\throwknife.exe</StartProgram>
     <StartArguments />
-    <StartWorkingDirectory>C:\Users\keigo\Downloads\Desktop\Git\h5g-knife-throwing\Library\DotsRuntimeBuild\build\throwknife\throwknife-windows-il2cpp-debug</StartWorkingDirectory>
+    <StartWorkingDirectory>C:\Users\keigo\Downloads\Desktop\h5g-knife-throwing\Library\DotsRuntimeBuild\build\throwknife\throwknife-windows-il2cpp-debug</StartWorkingDirectory>
     <EnableUnmanagedDebugging>true</EnableUnmanagedDebugging>
     <NoStdLib>true</NoStdLib>
     <AddAdditionalExplicitAssemblyReferences>false</AddAdditionalExplicitAssemblyReferences>
     <RuntimeMetadataVersion>v4.0.30319</RuntimeMetadataVersion>
     <TargetFrameworkVersion>v4.7.1</TargetFrameworkVersion>
     <BEE_USE_EMPTY_BUILD>false</BEE_USE_EMPTY_BUILD>
-    <BEEBUILDCOMMAND>"C:\Users\keigo\Downloads\Desktop\Git\h5g-knife-throwing\Library\PackageCache\com.unity.tiny@0.16.1-preview\DotsPlayer\bee~\bee.exe" --no-colors build/throwknife/throwknife-windows-il2cpp-debug/throwknife.exe</BEEBUILDCOMMAND>
-    <BEEBUILDWORKINGDIR>C:\Users\keigo\Downloads\Desktop\Git\h5g-knife-throwing\Library\DotsRuntimeBuild</BEEBUILDWORKINGDIR>
+    <BEEBUILDCOMMAND>"C:\Users\keigo\Downloads\Desktop\h5g-knife-throwing\Library\PackageCache\com.unity.tiny@0.16.1-preview\DotsPlayer\bee~\bee.exe" --no-colors build/throwknife/throwknife-windows-il2cpp-debug/throwknife.exe</BEEBUILDCOMMAND>
+    <BEEBUILDWORKINGDIR>C:\Users\keigo\Downloads\Desktop\h5g-knife-throwing\Library\DotsRuntimeBuild</BEEBUILDWORKINGDIR>
     <BEEOUTPUTDIRECTORY>artifacts\throwknife.dll\windows-il2cpp-debug</BEEOUTPUTDIRECTORY>
     <IntermediateOutputPath>..\..\Library\DotsRuntimeBuild\artifacts\Bee.CSharpSupport\MSBuildIntermediateOutputPath\windows-il2cpp-debug</IntermediateOutputPath>
   </PropertyGroup>
