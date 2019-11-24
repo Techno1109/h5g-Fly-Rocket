@@ -4,10 +4,10 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{3F3B46E4-AEA7-9032-EEA0-6A8252794F0C}</ProjectGuid>
+    <ProjectGuid>{94E9357A-5D7D-66B2-3613-177E52EAAA80}</ProjectGuid>
     <OutputType>Library</OutputType>
     <RootNamespace></RootNamespace>
-    <AssemblyName>throwknife</AssemblyName>
+    <AssemblyName>HoverSquare</AssemblyName>
     <FileAlignment>512</FileAlignment>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
     <LangVersion>7.3</LangVersion>
@@ -21,7 +21,7 @@
     <DebugSymbols>true</DebugSymbols>
     <DebugType>pdbonly</DebugType>
     <Optimize>true</Optimize>
-    <OutputPath>..\..\Library\DotsRuntimeBuild\artifacts\throwknife.dll\wasm-release</OutputPath>
+    <OutputPath>..\..\Library\DotsRuntimeBuild\artifacts\HoverSquare.dll\wasm-release</OutputPath>
     <DefineConstants>UNITY_2018_3_OR_NEWER;UNITY_DOTSPLAYER;UNITY_ZEROPLAYER;NET_TINY;NET_DOTS;UNITY_USE_TINYMATH;UNITY_BINDGEM;UNITY_AVOID_REFLECTION;UNITY_WEBGL;UNITY_SINGLETHREADED_JOBS;UNITY_DOTSPLAYER_IL2CPP</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
@@ -30,15 +30,15 @@
     <AllowUnsafeBlocks>false</AllowUnsafeBlocks>
     <Prefer32Bit>false</Prefer32Bit>
     <StartAction>URL</StartAction>
-    <StartURL>file:///C:/Users/keigo/Downloads/Desktop/h5g-knife-throwing/Library/DotsRuntimeBuild/build/throwknife/throwknife-wasm-release/throwknife.html</StartURL>
+    <StartURL>file:///C:/Users/keigo/Downloads/Desktop/h5g-knife-throwing/Library/DotsRuntimeBuild/build/HoverSquare/HoverSquare-wasm-release/HoverSquare.html</StartURL>
     <NoStdLib>true</NoStdLib>
     <AddAdditionalExplicitAssemblyReferences>false</AddAdditionalExplicitAssemblyReferences>
     <RuntimeMetadataVersion>v4.0.30319</RuntimeMetadataVersion>
     <TargetFrameworkVersion>v4.7.1</TargetFrameworkVersion>
     <BEE_USE_EMPTY_BUILD>false</BEE_USE_EMPTY_BUILD>
-    <BEEBUILDCOMMAND>"C:\Users\keigo\Downloads\Desktop\h5g-knife-throwing\Library\PackageCache\com.unity.tiny@0.16.1-preview\DotsPlayer\bee~\bee.exe" --no-colors build/throwknife/throwknife-wasm-release/throwknife.html</BEEBUILDCOMMAND>
+    <BEEBUILDCOMMAND>"C:\Users\keigo\Downloads\Desktop\h5g-knife-throwing\Library\PackageCache\com.unity.tiny@0.16.1-preview\DotsPlayer\bee~\bee.exe" --no-colors build/HoverSquare/HoverSquare-wasm-release/HoverSquare.html</BEEBUILDCOMMAND>
     <BEEBUILDWORKINGDIR>C:\Users\keigo\Downloads\Desktop\h5g-knife-throwing\Library\DotsRuntimeBuild</BEEBUILDWORKINGDIR>
-    <BEEOUTPUTDIRECTORY>artifacts\throwknife.dll\wasm-release</BEEOUTPUTDIRECTORY>
+    <BEEOUTPUTDIRECTORY>artifacts\HoverSquare.dll\wasm-release</BEEOUTPUTDIRECTORY>
     <IntermediateOutputPath>..\..\Library\DotsRuntimeBuild\artifacts\Bee.CSharpSupport\MSBuildIntermediateOutputPath\wasm-release</IntermediateOutputPath>
   </PropertyGroup>
   <ItemGroup Condition=" '$(Configuration)|$(Platform)' == 'wasm-release|AnyCPU' ">

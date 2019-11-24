@@ -1,9 +1,6 @@
 using Unity.Entities;
 using Unity.Tiny.Core;
-using Unity.Tiny.Core2D;
-using Unity.Tiny.UIControls;
-using Unity.Mathematics;
-using Unity.Collections;
+using Unity.Tiny.Input;
 
 namespace throwknife
 {
@@ -14,9 +11,6 @@ namespace throwknife
 
         EntityQuery KnifeQuery;
 
-        EntityQueryDesc ButtonDesc;
-
-        EntityQuery ButtonQuery;
 
         protected override void OnCreate()
         {
@@ -27,39 +21,20 @@ namespace throwknife
                 All = new ComponentType[] { typeof(KnifeTag), typeof(RigidBody) },
             };
 
-            ButtonDesc = new EntityQueryDesc()
-            {
-                All = new ComponentType[] {typeof(MoveButtonTag) ,typeof(PointerInteraction)},
-            };
-
-
 
             /*GetEntityQueryで取得した結果は自動的に開放されるため、Freeを行う処理を書かなくていいです。*/
             //作成したクエリの結果を取得します。
             KnifeQuery = GetEntityQuery(KnifeDesc);
-
-            ButtonQuery = GetEntityQuery(ButtonDesc);
         }
 
         protected override void OnUpdate()
         {
-            /*チャンクイテレーションは行数が間延びしやすく、書くのが面倒なため、ForeachAPIを使用します*/
 
-            NativeArray<PointerInteraction> MoveButtons = ButtonQuery.ToComponentDataArray<PointerInteraction>(Allocator.TempJob);
-
-
-            if (MoveButtons.Length <= 0)
-            {
-                MoveButtons.Dispose();
-                return;
-            }
+            var Input = EntityManager.World.GetExistingSystem<InputSystem>();
 
             bool InputButton = false;
 
-            for (int i=0;i<MoveButtons.Length; i++)
-            {
-                InputButton = InputButton || MoveButtons[i].down;
-            }
+            InputButton = Input.GetMouseButton(0);
 
             Entities.With(KnifeQuery).ForEach((ref RigidBody Rigid,ref KnifeTag Tag) =>
            {
@@ -78,9 +53,6 @@ namespace throwknife
 
            });
 
-            
-
-            MoveButtons.Dispose();
         }
     }
 }

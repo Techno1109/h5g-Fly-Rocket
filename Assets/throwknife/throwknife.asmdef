@@ -37,7 +37,6 @@
         "Unity.Tiny.UILayout",
         "Unity.Tiny.Watchers"
     ],
-    "optionalUnityReferences": [],
     "includePlatforms": [],
     "excludePlatforms": [],
     "allowUnsafeCode": false,

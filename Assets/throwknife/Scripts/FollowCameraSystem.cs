@@ -1,6 +1,5 @@
 using Unity.Entities;
 using Unity.Tiny.Core2D;
-using Unity.Tiny.Core;
 using Unity.Collections;
 
 namespace throwknife
@@ -16,7 +15,7 @@ namespace throwknife
 
             CameraQueryDesc = new EntityQueryDesc()
             {
-                All = new ComponentType[] { typeof(FollowCam), typeof(Translation) },
+                All = new ComponentType[] { typeof(Camera2D),typeof(FollowCam), typeof(Translation) },
             };
 
             /*GetEntityQueryで取得した結果は自動的に開放されるため、Freeを行う処理を書かなくていいです。*/
@@ -32,7 +31,6 @@ namespace throwknife
 
             if (CamArray.Length <= 0 || CamTransArray.Length <= 0)
             {
-
                 CamArray.Dispose();
                 CamTransArray.Dispose();
                 return;
